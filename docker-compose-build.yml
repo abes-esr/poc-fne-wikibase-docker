@@ -29,15 +29,10 @@ services:
       default:
         aliases:
          - wikibase.svc
+    # CONFIG - Add your custom `env/.wb_env` based on `env/dot_wb_env` model
+    env_file: env/.wb_env
     environment:
       - DB_SERVER=mysql.svc:3306
-      - DB_USER=wikiuser
-      - DB_PASS=sqlpass
-      - DB_NAME=my_wiki
-      - MW_ADMIN_NAME=WikibaseAdmin
-      - MW_ADMIN_PASS=WikibaseDockerAdminPass
-      - MW_ADMIN_EMAIL=admin@example.com
-      - MW_WG_SECRET_KEY=secretkey
       - MW_ELASTIC_HOST=elasticsearch.svc
       - MW_ELASTIC_PORT=9200
       - QS_PUBLIC_SCHEME_HOST_AND_PORT=http://localhost:9191
@@ -45,11 +40,7 @@ services:
     image: mariadb:latest
     volumes:
       - mediawiki-mysql-data:/var/lib/mysql
-    environment:
-      MYSQL_DATABASE: 'my_wiki'
-      MYSQL_USER: 'wikiuser'
-      MYSQL_PASSWORD: 'sqlpass'
-      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    env_file: env/.mysql_env
     networks:
       default:
         aliases:
