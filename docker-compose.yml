@@ -65,8 +65,11 @@ services:
     # - SELinux is enabled and might be messing with this container's file permissions
     # - there are known issues with mounting BlazeGraph data file: https://github.com/lyrasis/docker-blazegraph/issues/12
     privileged: true
+    # 'z' flag required to run on CentOS 7.6 with Docker 1.13.1
+    # Without this flag, the root user fails to access /wdqs/data/data.jnl: "Permission Denied".
+    # This is due to SELinux being enabled, but the exact way it prevents the container to access the file is unclear
     volumes:
-      - query-service-data:/wdqs/data
+      - query-service-data:/wdqs/data:z
     command: /runBlazegraph.sh
     networks:
       default:
