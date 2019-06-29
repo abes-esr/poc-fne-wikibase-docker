@@ -21,7 +21,6 @@ services:
      - "8181:80"
     volumes:
       - mediawiki-images-data:/var/www/html/images
-      - quickstatements-data:/quickstatements/data
     depends_on:
     - mysql
     - elasticsearch
@@ -35,7 +34,6 @@ services:
       - DB_SERVER=mysql.svc:3306
       - MW_ELASTIC_HOST=elasticsearch.svc
       - MW_ELASTIC_PORT=9200
-      - QS_PUBLIC_SCHEME_HOST_AND_PORT=http://localhost:9191
   mysql:
     image: mariadb:latest
     volumes:
@@ -123,32 +121,8 @@ services:
          - elasticsearch.svc
     environment:
       discovery.type: single-node
-  quickstatements:
-    image: wikibase/quickstatements:latest
-    build:
-      context: ./quickstatements/latest
-      dockerfile: Dockerfile
-    ports:
-     - "9191:80"
-    depends_on:
-     - wikibase
-    volumes:
-     - quickstatements-data:/quickstatements/data
-    networks:
-      default:
-        aliases:
-         - quickstatements.svc
-    environment:
-      - QS_PUBLIC_SCHEME_HOST_AND_PORT=http://localhost:9191
-      - WB_PUBLIC_SCHEME_HOST_AND_PORT=http://localhost:8181
-      - WIKIBASE_SCHEME_AND_HOST=http://wikibase.svc
-      - WB_PROPERTY_NAMESPACE=122
-      - "WB_PROPERTY_PREFIX=Property:"
-      - WB_ITEM_NAMESPACE=120
-      - "WB_ITEM_PREFIX=Item:"
 
 volumes:
   mediawiki-mysql-data:
   mediawiki-images-data:
   query-service-data:
-  quickstatements-data:
