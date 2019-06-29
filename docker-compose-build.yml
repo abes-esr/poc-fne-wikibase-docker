@@ -1,6 +1,7 @@
-# Wikibase with Query Service
+# POC FNE : Wikibase with Query Service
 #
-# This docker-compose example can be used to build and run the images.
+# This docker-compose is a custom setup made for FNE proof of concept :
+# https://github.com/abes-esr/poc-fne
 #
 # Access Wikibase via "http://localhost:8181"
 #   (or "http://$(docker-machine ip):8181" if using docker-machine)
