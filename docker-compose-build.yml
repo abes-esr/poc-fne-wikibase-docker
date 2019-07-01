@@ -66,8 +66,12 @@ services:
     build:
       context: ./wdqs/0.3.0
       dockerfile: Dockerfile
+    # A 'z' or 'Z' flag is required to run on CentOS 7.6 with Docker 1.13.1
+    # Without this flag, the root user fails to access /wdqs/data/data.jnl: "Permission Denied".
+    # This is due to SELinux being enabled, but the exact way it prevents the container to access the file is unclear
+    # See z/Z flags documentation: https://docs.docker.com/storage/bind-mounts/#configure-the-selinux-label
     volumes:
-      - query-service-data:/wdqs/data
+      - query-service-data:/wdqs/data:Z
     command: /runBlazegraph.sh
     networks:
       default:
