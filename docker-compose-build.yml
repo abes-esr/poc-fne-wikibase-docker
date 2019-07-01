@@ -29,6 +29,7 @@ services:
       default:
         aliases:
          - wikibase.svc
+         - tmp-poc-fne.inventaire.io
     # CONFIG - Add your custom `env/.wb_env` based on `env/dot_wb_env` model
     env_file: env/.wb_env
     environment:
