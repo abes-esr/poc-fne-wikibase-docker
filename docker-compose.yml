@@ -14,6 +14,8 @@ services:
      - "8181:80"
     volumes:
       - mediawiki-images-data:/var/www/html/images
+      # surcharge du LocalSettings.php specifique au FNE
+      - ./wikibase/LocalSettings.php:/var/www/html/LocalSettings.php:ro
     depends_on:
       - mysql
       - elasticsearch

@@ -11,9 +11,9 @@
 ## Database settings
 ## Environment variables will be substituted in here.
 $wgDBserver = "mysql.svc:3306";
-$wgDBname = "my_wiki";
-$wgDBuser = "wikiuser";
-$wgDBpassword = "sqlpass";
+$wgDBname = $_ENV['DB_NAME']; // "my_wiki";
+$wgDBuser = $_ENV['DB_USER']; // "wikiuser";
+$wgDBpassword = $_ENV['DB_PASS']; //"sqlpass";
 
 ## Logs
 ## Save these logs inside the container
@@ -77,3 +77,7 @@ wfLoadExtension( 'UniversalLanguageSelector' );
 
 # cldr
 wfLoadExtension( 'cldr' );
+
+# force URL because HTTPS is not auto-discoverd
+# see https://github.com/abes-esr/poc-fne/issues/205
+$wgServer = $_ENV['WG_SERVER']; //'https://poc-fne.abes.fr';
