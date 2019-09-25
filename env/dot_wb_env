@@ -2,7 +2,9 @@ MW_ADMIN_NAME=<Some user to be created>
 MW_ADMIN_PASS=<The password for the above user>
 MW_ADMIN_EMAIL=<Email of the above user>
 MW_WG_SECRET_KEY=<A random secret key>
+
 DB_NAME=<DB name matching the MySQL service>
 DB_USER=<Username matching the MySQL service>
 DB_PASS=<Password matching the MySQL service>
 
+WG_SERVER=<full public host>

@@ -18,9 +18,9 @@ ${DOLLAR}wgDBpassword = "${DB_PASS}";
 ## Logs
 ## Save these logs inside the container
 ${DOLLAR}wgDebugLogGroups = [
-	'resourceloader' => '/var/log/mediawiki/resourceloader.log',
-	'exception' => '/var/log/mediawiki/exception.log',
-	'error' => '/var/log/mediawiki/error.log',
+  'resourceloader' => '/var/log/mediawiki/resourceloader.log',
+  'exception' => '/var/log/mediawiki/exception.log',
+  'error' => '/var/log/mediawiki/error.log',
 ];
 
 ## Site Settings
@@ -44,6 +44,10 @@ ${DOLLAR}wgSecretKey = "${MW_WG_SECRET_KEY}";
 # The query service (by default) loads data from recent changes
 # Set this to 1 year to avoid any changes being removed from the RC table over a shorter period of time.
 ${DOLLAR}wgRCMaxAge = 365 * 24 * 3600;
+
+# Allows to force the URL to be HTTPS from environment variables as it is not auto-discoverd
+# See https://github.com/abes-esr/poc-fne/issues/205
+$wgServer = $_ENV['WG_SERVER'];
 
 wfLoadSkin( 'Vector' );
 
