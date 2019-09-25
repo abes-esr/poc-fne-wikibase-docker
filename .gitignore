@@ -1,3 +1,2 @@
 .idea
-env/.mysql_env
-env/.wb_env
+env/.*

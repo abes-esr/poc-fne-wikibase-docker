@@ -106,8 +106,8 @@ services:
       default:
         aliases:
          - wdqs-updater.svc
+    env_file: env/.wdqs_updater_env
     environment:
-     - WIKIBASE_HOST=wikibase.svc
      - WDQS_HOST=wdqs.svc
      - WDQS_PORT=9999
   elasticsearch:
