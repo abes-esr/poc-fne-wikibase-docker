@@ -1,40 +1,32 @@
-## wikibase-docker
+# wikibase-docker
 
-This repo contains [Docker](https://www.docker.com/) images needed to setup a local Wikibase instance and a query service.
+Ce repo contient une version de [`wmde/wikibase-docker`](https://github.com/wmde/wikibase-docker) customisée pour les besoins du [poc-fne](https://fil.abes.fr/2019/09/04/fne-preuve-de-concept-en-cours/). Ce README ne vise donc qu'à documenter les particularités du poc-fne, se référer à la documentation de [`wmde/wikibase-docker`](https://github.com/wmde/wikibase-docker) pour le reste.
 
-Each image contained within this repo has its own README with more detailed information:
+## Installation
 
-Image name               | Description   | README
------------------------- | ------------- | ----------
-[`wikibase/wikibase`](https://hub.docker.com/r/wikibase/wikibase) | MediaWiki with the Wikibase extension| [README](https://github.com/wmde/wikibase-docker/blob/master/wikibase/README.md)
-[`wikibase/wdqs`](https://hub.docker.com/r/wikibase/wdqs) | Blazegraph SPARQL query service backend | [README](https://github.com/wmde/wikibase-docker/blob/master/wdqs/README.md)
-[`wikibase/wdqs-proxy`](https://hub.docker.com/r/wikibase/wdqs-proxy) | Proxy to make the query service READONLY and enforce query timeouts | [README](https://github.com/wmde/wikibase-docker/blob/master/wdqs-proxy/README.md)
-[`wikibase/wdqs-frontend`](https://hub.docker.com/r/wikibase/wdqs-frontend) | UI for the SPARQL query service | [README](https://github.com/wmde/wikibase-docker/blob/master/wdqs-frontend/README.md)
-[`wikibase/quickstatements`](https://hub.docker.com/r/wikibase/quickstatements) | UI to add data to Wikibase | [README](https://github.com/wmde/wikibase-docker/blob/master/quickstatements/README.md)
+```sh
+git clone https://github.com/abes-esr/poc-fne-wikibase-docker
+cd https://github.com/abes-esr/poc-fne-wikibase-docker
+# Copiez les fichier de déclaration de variables d'environement spécifique à chaque service
+cp env/dot_mysql_env env/.mysql_env
+cp env/dot_wb_env env/.wb_env
+cp env/dot_wdqs env/.wdqs
+# Puis ouvrez les dans un éditeur de texte pour les modifier selon vos besoins
+```
 
-### Docker compose example
+## Utilisation
 
-This repo contains an EXAMPLE docker compose setup for Wikibase (specified in the [docker-compose.yml](docker-compose.yml) file) that combines the images described above to set up a fully-featured local Wikibase environment. You can use that file as a base to build a custom environment tailored to your needs.
+Démarrer les services en arrière plan:
+```sh
+docker-compose up -d
+```
 
-To try it out, make sure you have Docker installed, then just clone this repository, enter its directory and run `docker-compose up -d`. Once that step completes, you should have:
-- a MediaWiki wiki fully configured with [Wikibase](https://www.mediawiki.org/wiki/Wikibase), available at http://localhost:8181
-- a [Wikidata Query Service](https://www.mediawiki.org/wiki/Wikidata_Query_Service) instance available at http://localhost:8282
-- a [QuickStatements](https://www.wikidata.org/wiki/Help:QuickStatements) instance, available at http://localhost:9191
+Certains services sont reconstruits (*build*) plutôt que d'utiliser l'image publiée par wmde sur hub.docker.com, ce afin de prendre en compte des customisations (voir ci-dessous). Pour prendre en compte de nouvelles modifications dans ces services reconstruits, il faut explicitement demander à re-build ces services:
+```sh
+docker-compose up --build -d
+```
 
-Note that the Wikibase instance has no data; no items or properties. To add some data, use the `Special:NewItem` and `Special:NewProperty` pages in the local wiki; then you can add statements to the added items using the properties you defined.
+## Customisation
 
-For more information about this example enviroment, please see the [README-compose.md](https://github.com/wmde/wikibase-docker/blob/master/README-compose.md) file.
-
-### Issue tracking
-
-We use [Phabricator to track
-issues](https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?projects=wikibase-containers). See the [list of current issues](https://phabricator.wikimedia.org/maniphest/?project=wikibase-containers&statuses=open&group=none&order=newest#R).
-
-### Further reading
-
-For beginner-friendly light reading on the subject of using these images / this repo, check out the posts under [this tag](https://addshore.com/tag/wikibase-docker/), specifically:
- - [Announcement of the creation of these images](https://addshore.com/2017/12/wikibase-docker-images/)
- - [First basic example usage (the wikibase registry)](https://addshore.com/2018/04/wikibase-of-wikibases/)
- - [Customizing the example docker-compose file](https://addshore.com/2018/06/customizing-wikibase-config-in-the-docker-compose-example/)
- - [Creating your own Dockerfile for wikibase](https://addshore.com/2019/02/creating-a-dockerfile-for-the-wikibase-registry/)
- - [Example update process for wikibase](https://addshore.com/2019/01/wikibase-docker-mediawiki-wikibase-update/)
+### wikibase
+Le re-build de l'image est nécessaire pour pouvoir modifier le fichier `LocalSettings.php`. Les modifications pour le poc-fne sont regroupé dans le fichier [`/wikibase/1.33/bundle/LocalSettings.php.poc-fne.template`](https://github.com/abes-esr/poc-fne-wikibase-docker/blob/poc-fne/wikibase/1.33/bundle/LocalSettings.php.poc-fne.template), lequel est pris en compte par [`./wikibase/1.33/bundle/Dockerfile`](https://github.com/abes-esr/poc-fne-wikibase-docker/blob/poc-fne/wikibase/1.33/bundle/Dockerfile).
