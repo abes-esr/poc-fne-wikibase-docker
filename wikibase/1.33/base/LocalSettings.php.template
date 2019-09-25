@@ -62,6 +62,8 @@ ${DOLLAR}wgExtraNamespaces[WB_NS_PROPERTY_TALK] = 'Property_talk';
 ${DOLLAR}wgWBRepoSettings['entityNamespaces']['item'] = NS_MAIN;
 ${DOLLAR}wgWBRepoSettings['entityNamespaces']['property'] = WB_NS_PROPERTY;
 
+${DOLLAR}wgShowExceptionDetails = true;
+
 wfLoadSkin( 'Vector' );
 
 ## Wikibase
