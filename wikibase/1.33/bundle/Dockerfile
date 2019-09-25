@@ -42,6 +42,7 @@ COPY --from=fetcher /cldr /var/www/html/extensions/cldr
 COPY --from=fetcher /EntitySchema /var/www/html/extensions/EntitySchema
 COPY --from=composer /WikibaseImport /var/www/html/extensions/WikibaseImport
 COPY LocalSettings.php.wikibase-bundle.template /LocalSettings.php.wikibase-bundle.template
+COPY LocalSettings.php.poc-fne.template /LocalSettings.php.poc-fne.template
 COPY extra-install.sh /
 COPY extra-entrypoint-run-first.sh /
-RUN cat /LocalSettings.php.wikibase-bundle.template >> /LocalSettings.php.template && rm /LocalSettings.php.wikibase-bundle.template
+RUN cat /LocalSettings.php.wikibase-bundle.template /LocalSettings.php.poc-fne.template >> /LocalSettings.php.template && rm /LocalSettings.php.wikibase-bundle.template

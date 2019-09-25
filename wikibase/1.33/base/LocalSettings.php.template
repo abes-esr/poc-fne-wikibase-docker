@@ -45,25 +45,6 @@ ${DOLLAR}wgSecretKey = "${MW_WG_SECRET_KEY}";
 # Set this to 1 year to avoid any changes being removed from the RC table over a shorter period of time.
 ${DOLLAR}wgRCMaxAge = 365 * 24 * 3600;
 
-# Allows to force the URL to be HTTPS from environment variables as it is not auto-discoverd
-# See https://github.com/abes-esr/poc-fne/issues/205
-$wgServer = $_ENV['WG_SERVER'];
-
-# Setting up items in the main namespace
-# Source: https://www.mediawiki.org/wiki/Wikibase/Installation/Advanced_configuration#Setting_up_items_in_the_main_namespace
-${DOLLAR}baseNs = 100;
-# Define the namespace indexes
-define( 'WB_NS_PROPERTY', ${DOLLAR}baseNs + 2 );
-define( 'WB_NS_PROPERTY_TALK', ${DOLLAR}baseNs + 3 );
-# Define the namespaces
-${DOLLAR}wgExtraNamespaces[WB_NS_PROPERTY] = 'Property';
-${DOLLAR}wgExtraNamespaces[WB_NS_PROPERTY_TALK] = 'Property_talk';
-# Assigning the correct entity types to the namespaces
-${DOLLAR}wgWBRepoSettings['entityNamespaces']['item'] = NS_MAIN;
-${DOLLAR}wgWBRepoSettings['entityNamespaces']['property'] = WB_NS_PROPERTY;
-
-${DOLLAR}wgShowExceptionDetails = true;
-
 wfLoadSkin( 'Vector' );
 
 ## Wikibase
