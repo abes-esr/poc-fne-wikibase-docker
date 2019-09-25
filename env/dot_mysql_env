@@ -1,4 +1,8 @@
-MYSQL_DATABASE=<Some SQL table to be auto created>
-MYSQL_USER=<Some username for DB access>
-MYSQL_PASSWORD=<Some password for DB access>
-MYSQL_RANDOM_ROOT_PASSWORD=yes
+# Some SQL table to be auto created
+MYSQL_DATABASE='my_wiki'
+# Some username for DB access
+MYSQL_USER='wikiuser'
+# Some password for DB access
+MYSQL_PASSWORD='sqlpass'
+
+MYSQL_RANDOM_ROOT_PASSWORD='yes'

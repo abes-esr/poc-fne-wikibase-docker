@@ -1,10 +1,18 @@
-MW_ADMIN_NAME=<Some user to be created>
-MW_ADMIN_PASS=<The password for the above user>
-MW_ADMIN_EMAIL=<Email of the above user>
-MW_WG_SECRET_KEY=<A random secret key>
+# Some user to be created
+MW_ADMIN_NAME=WikibaseAdmin
+# The password for the above user
+MW_ADMIN_PASS=WikibaseDockerAdminPass
+# Email of the above user
+MW_ADMIN_EMAIL=admin@example.com
+# A random secret key
+MW_WG_SECRET_KEY=secretkey
 
-DB_NAME=<DB name matching the MySQL service>
-DB_USER=<Username matching the MySQL service>
-DB_PASS=<Password matching the MySQL service>
+# DB name matching the MySQL service
+DB_NAME=my_wiki
+# Username matching the MySQL service
+DB_USER=wikiuser
+# Password matching the MySQL service
+DB_PASS=sqlpass
 
-WG_SERVER=<full public host>
+# full public host
+WG_SERVER=wikibase.svc
