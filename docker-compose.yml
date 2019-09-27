@@ -25,6 +25,7 @@ services:
         aliases:
          - wikibase.svc
          # CONFIG - Add your real wikibase hostname here, for example wikibase-registry.wmflabs.org
+         - poc-fne.abes.fr
     # CONFIG - Add your custom `env/.wb_env` based on `env/dot_wb_env` model
     env_file: env/.wb_env
     environment:
