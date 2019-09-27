@@ -46,7 +46,9 @@ services:
          - mysql.svc
     tty: true # Colorize logs
   wdqs-frontend:
-    image: wikibase/wdqs-frontend:latest
+    build:
+      context: ./wdqs-frontend/latest
+      dockerfile: Dockerfile
     ports:
      - "8282:80"
     depends_on:

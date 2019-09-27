@@ -1,13 +1,13 @@
 FROM ubuntu:xenial as fetcher
 
 RUN apt-get update && \
-    apt-get install --yes --no-install-recommends unzip=6.* && \
+    apt-get install --yes --no-install-recommends unzip=6.* ca-certificates git && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-ADD https://github.com/wikimedia/wikidata-query-gui/archive/master.zip ./master.zip
-
-# Creates /wikidata-query-gui-master
-RUN unzip master.zip && rm master.zip
+# Using RUN instead of ADD to make this step be fully cached
+# Using git so that we can easily know which version is installed
+# instead of blindly downloading the latest version
+RUN git clone --depth=1 https://github.com/wikimedia/wikidata-query-gui wikidata-query-gui-master
 
 
 # TODO this should probably just be a node image?
@@ -28,7 +28,8 @@ RUN mv package.json package.json.orig \
         > package.json < package.json.orig \
     # Fixes 'npm WARN tar ENOENT: no such file or directory' errors
     && rm -f package-lock.json \
-    && npm install --production
+    && npm install \
+    && npm run build
 
 
 FROM nginx:stable-alpine as final
