@@ -25,7 +25,9 @@ services:
         aliases:
          - wikibase.svc
          # CONFIG - Add your real wikibase hostname here, for example wikibase-registry.wmflabs.org
-         - poc-fne.abes.fr
+         # Commenting out alias as the wdqs-updater was encountering connection errors, apparently because of it:
+         # java.lang.RuntimeException: org.apache.http.conn.HttpHostConnectException: Connect to poc-fne.abes.fr:443 [poc-fne.abes.fr/172.30.0.6] failed: Connection refused (Connection refused)
+         # - poc-fne.abes.fr
     # CONFIG - Add your custom `env/.wb_env` based on `env/dot_wb_env` model
     env_file: env/.wb_env
     environment:
