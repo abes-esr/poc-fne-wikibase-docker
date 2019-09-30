@@ -7,15 +7,15 @@ RUN apt-get update && \
 # Using RUN instead of ADD to make this step be fully cached
 # Using git so that we can easily know which version is installed
 # instead of blindly downloading the latest version
-RUN git clone --depth=1 https://github.com/wikimedia/wikidata-query-gui wikidata-query-gui-master
+RUN git clone --depth=1 https://github.com/abes-esr/wikidata-query-gui -b poc-fne
 
 
 # TODO this should probably just be a node image?
 FROM nginx:stable-alpine as builder
 
-COPY --from=fetcher /wikidata-query-gui-master /tmp/wikidata-query-gui-master
+COPY --from=fetcher /wikidata-query-gui /tmp/wikidata-query-gui
 
-WORKDIR /tmp/wikidata-query-gui-master
+WORKDIR /tmp/wikidata-query-gui
 
 # Put wdqs gui in the right place
 RUN apk --no-cache add --virtual build-dependencies ca-certificates~=20190108 git>=2.20 nodejs~=10 npm~=10 jq~=1.6 python~=2.7 make~=4.2 g++~=8.3
@@ -36,7 +36,7 @@ FROM nginx:stable-alpine as final
 
 WORKDIR /usr/share/nginx/html
 
-COPY --from=builder /tmp/wikidata-query-gui-master /usr/share/nginx/html
+COPY --from=builder /tmp/wikidata-query-gui /usr/share/nginx/html
 RUN echo "" > style.css
 COPY entrypoint.sh /entrypoint.sh
 COPY custom-config.json /templates/custom-config.json
