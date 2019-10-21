@@ -13,6 +13,7 @@ bash download-extension.sh AdvancedSearch;\
 bash download-extension.sh WikibaseCirrusSearch;\
 bash download-extension.sh UniversalLanguageSelector;\
 bash download-extension.sh cldr;\
+bash download-extension.sh WikibaseQualityConstraints;\
 tar xzf OAuth.tar.gz;\
 tar xzf Elastica.tar.gz;\
 tar xzf CirrusSearch.tar.gz;\
@@ -20,6 +21,7 @@ tar xzf AdvancedSearch.tar.gz;\
 tar xzf WikibaseCirrusSearch.tar.gz;\
 tar xzf UniversalLanguageSelector.tar.gz;\
 tar xzf cldr.tar.gz;\
+tar xzf WikibaseQualityConstraints.tar.gz;\
 tar xzf WikibaseImport.tar.gz;\
 rm ./*.tar.gz
 
@@ -36,6 +38,9 @@ RUN composer install --no-dev
 COPY --from=fetcher /Elastica /Elastica
 WORKDIR /Elastica
 RUN composer install --no-dev
+COPY --from=fetcher /WikibaseQualityConstraints /WikibaseQualityConstraints
+WORKDIR /WikibaseQualityConstraints
+RUN composer install --no-dev
 
 FROM wikibase/wikibase:1.33
 COPY --from=fetcher /OAuth /var/www/html/extensions/OAuth
@@ -47,6 +52,7 @@ COPY --from=fetcher /WikibaseCirrusSearch /var/www/html/extensions/WikibaseCirru
 COPY --from=fetcher /cldr /var/www/html/extensions/cldr
 COPY --from=fetcher /EntitySchema /var/www/html/extensions/EntitySchema
 COPY --from=composer /WikibaseImport /var/www/html/extensions/WikibaseImport
+COPY --from=composer /WikibaseQualityConstraints /var/www/html/extensions/WikibaseQualityConstraints
 COPY LocalSettings.php.wikibase-bundle.template /LocalSettings.php.wikibase-bundle.template
 COPY LocalSettings.php.poc-fne.template /LocalSettings.php.poc-fne.template
 COPY extra-install.sh /

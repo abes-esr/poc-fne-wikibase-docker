@@ -2,6 +2,8 @@
 wfLoadExtension( 'AdvancedSearch' );
 # WikibaseCirrusSearch
 wfLoadExtension( 'WikibaseCirrusSearch' );
+# WikibaseQualityConstraints
+wfLoadExtension( 'WikibaseQualityConstraints' );
 
 # Allows to force the URL to be HTTPS from environment variables as it is not auto-discoverd
 # See https://github.com/abes-esr/poc-fne/issues/205
