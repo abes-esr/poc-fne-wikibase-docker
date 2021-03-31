@@ -1,6 +1,6 @@
 # wikibase-docker
 
-Ce repo contient une version de [`wmde/wikibase-docker`](https://github.com/wmde/wikibase-docker) customisée pour les besoins du [poc-fne](https://fil.abes.fr/2019/09/04/fne-preuve-de-concept-en-cours/). Ce README ne vise donc qu'à documenter les particularités du poc-fne, se référer à la documentation de [`wmde/wikibase-docker`](https://github.com/wmde/wikibase-docker) pour le reste.
+Ce repo contient une version de [`wmde/wikibase-docker`](https://github.com/wmde/wikibase-docker) customisée pour les besoins du [poc-fne](https://fil.abes.fr/2019/09/04/fne-preuve-de-concept-en-cours/) (réalisé en 2019). Ce README ne vise donc qu'à documenter les particularités du poc-fne, se référer à la documentation de [`wmde/wikibase-docker`](https://github.com/wmde/wikibase-docker) pour le reste.
 
 ## Installation
 
